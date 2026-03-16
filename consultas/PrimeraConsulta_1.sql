@@ -1,3 +1,5 @@
+---------- ejercicios parte 1 -----------
+
 USE empresa
 
 SELECT *  -- columnas 
@@ -42,4 +44,17 @@ SELECT apellido,  salario, comision, dnombre, comision*100/salario AS PercentCom
 FROM emple INNER JOIN depart 
 ON (emple.dept_no=depart.dept_no)
 WHERE comision>0
+
+----------------------------------------------------------
+INSERT INTO depart VALUES (40, 'PRODUCCIÓN', 'BILBAO'); ---- Nuevos datos
+COMMIT;
+
+SELECT dnombre, loc, apellido, salario, comision
+FROM emple right JOIN depart ----- la right JOIN permite que se muestre los nuevos datos añadidos, ya que esos no tienen referencia en la otra tabla
+ON (emple.dept_no=depart.dept_no)
+WHERE depart.dept_no>=30
+
+
+
+
 

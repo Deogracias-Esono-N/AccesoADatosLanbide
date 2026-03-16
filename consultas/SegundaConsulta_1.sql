@@ -1,0 +1,78 @@
+---------- ejercicios parte 2 -----------
+
+USE EMPRESA2
+
+SELECT *  // columnas 
+FROM emple // tablas
+WHERE dept_no = 10 // filtra las filas
+ORDER BY apellido DESC // ordenamiento
+
+/*consulta A */
+SELECT EMPLEADO.CodEmp, NomEmp, SalEmp, NomDep // como CodDep esta en las 2 tablas, hay que especificar en donde lo queremos, por eso hacemos DEPARTAMENTO.codDep
+FROM EMPLEADO INNER JOIN DEPARTAMENTO
+ON (EMPLEADO.CodDep=DEPARTAMENTO.CodDep)
+
+/* consulta B */
+SELECT DEPARTAMENTO.CodDep, NomEmp, NomDep 
+FROM EMPLEADO INNER JOIN DEPARTAMENTO
+ON (EMPLEADO.CodEmp=DEPARTAMENTO.CodEmpDir)
+
+/*cosulta C*/
+SELECT NomEmp, HABILIDAD.CodHab, DesHab, NivHab
+FROM HABEMP INNER JOIN EMPLEADO INNER JOIN HABILIDAD
+ON (HABEMP.CodEmp=EMPLEADO.CodEmp AND HABILIDAD.CodHab=HABEMP.CodHab);
+
+/*consulta D*/
+SELECT NomEmp, SalEmp, ROUND(SalEmp / PreAnu) * 100, 2)
+FROM EMPLEADO INNER JOIN DEPARTAMENTO
+ON (EMPLEADO.CodDep=DEPARTAMENTO.CodDep)
+WHERE SalEmp > 30000;
+
+/*consulta D* funciona */
+SELECT NomEmp, SalEmp, ROUND((SalEmp / PreAnu) * 100, 2)
+FROM EMPLEADO INNER JOIN DEPARTAMENTO
+ON (EMPLEADO.CodDep=DEPARTAMENTO.CodDep)
+WHERE SalEmp > 30000;
+
+/**consulta E*/
+SELECT NomEmp, ExTelemp, FecNaEmp,NomDep, NomCen
+FROM EMPLEADO INNER JOIN DEPARTAMENTO INNER JOIN CENTRO
+ON (EMPLEADO.CodDEP=DEPARTAMENTO.CodDEP AND DEPARTAMENTO.CodCen=CENTRO.CodCen)
+WHERE YEAR(FecNaEmp) > 1969
+ORDER BY FecNaEmp DESC /* para ordenear */
+
+
+/* consulta F */
+SELECT NomEmp, SalEmp, FecNaHi
+FROM EMPLEADO INNER JOIN HIJO
+ON (EMPLEADO.CodEmp=HIJO.CodEmp)
+WHERE YEAR(FecNaHi) > 1990
+
+/* consulta G */
+SELECT NomCen, DirCen, ExTelemp, SalEmp
+FROM CENTRO INNER JOIN DEPARTAMENTO INNER JOIN EMPLEADO
+ON (CENTRO.CodEmpDir=DEPARTAMENTO.CodEmpDir AND EMPLEADO.CodDep=DEPARTAMENTO.CodDep)
+ORDER BY NomCen ASC 
+
+/* consulta H */
+SELECT NomDep, PreAnu, NomCen, DirCen, NomEmp
+FROM CENTRO INNER JOIN DEPARTAMENTO INNER JOIN EMPLEADO
+ON (CENTRO.CodEmpDir=DEPARTAMENTO.CodEmpDir AND EMPLEADO.CodDep=DEPARTAMENTO.CodDep)
+WHERE CodDepDep IS NULL 
+
+
+
+SELECT *
+FROM CENTRO
+
+SELECT *
+FROM EMPLEADO
+
+sELECT *
+FROM DEPARTAMENTO
+
+sELECT *
+FROM HABILIDAD
+
+
+
